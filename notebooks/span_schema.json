@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "properties": {
+    "traceId": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "exec": {
+      "type": "number"
+    },
+    "timestamp": {
+      "type": "number"
+    },
+    "parentId": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "number"
+    },
+    "binnaryAnnotations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "required": ["key", "value"]
+      }
+    },
+    "annotations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "number"
+          },
+          "value": {
+            "type": "string"
+          },
+          "endpoint": {
+            "type": "object"
+          }
+        },
+        "required": ["timestamp", "value"]
+      }
+    }
+  },
+  "required": ["traceId", "name", "timestamp", "duration"]
+}

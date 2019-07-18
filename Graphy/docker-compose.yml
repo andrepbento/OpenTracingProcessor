@@ -1,0 +1,78 @@
+# Author: André Bento
+version: '3.1'
+
+services:
+
+  # graphy:
+  #   build: .
+  #   container_name: graphy
+  #   # depends_on:
+  #   #  - arangodb
+  #   #  - zipkin
+  #   # links:
+  #   #  - zipkin
+  #   volumes:
+  #     - tmp/graphy/data:/Graphy/data
+
+  arangodb:
+    image: arangodb
+    container_name: graphy_arangodb
+    environment:
+      - ARANGO_ROOT_PASSWORD=password
+      - name=arangodb-instance
+    # networks:
+    #   - graphy-network
+    ports:
+      - 8529:8529
+    volumes:
+      - arangodb-storage:/var/lib/arangodb3
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: graphy_grafana
+    # networks:
+    #   - graphy-network
+    ports:
+      - 3000:3000
+    # env_file:
+    #   - 'env.grafana'#
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+  opentsdb:
+    image: petergrace/opentsdb-docker
+    container_name: graphy_opentsdb
+    restart: always
+    environment:
+      - WAITSECS=30
+    # networks:
+    #   - graphy-network
+    ports:
+      - 4242:4242
+    volumes:
+      - opentsdb-storage:/data/hbase
+      # Config file
+      - ./opentsdb.conf:/etc/opentsdb/opentsdb.conf
+
+  zipkin:
+    image: openzipkin/zipkin:2.12.0
+    container_name: graphy_zipkin
+    restart: always
+    # networks:
+    #   - graphy-network
+    ports:
+      - 9411:9411
+    # environment:
+    #   - STORAGE_TYPE=elasticsearch
+    #   - ES_HOSTS=http://172.17.0.2:9200
+
+  # networks:
+  #   graphy-network:
+  #     driver: bridge
+  #     driver: overlay
+  #     attachable: true
+
+volumes:
+  arangodb-storage:
+  grafana-storage:
+  opentsdb-storage:

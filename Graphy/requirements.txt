@@ -1,0 +1,17 @@
+click
+click-log
+coloredlogs
+jsonschema
+matplotlib
+networkx
+numpy
+opentsdb-py
+pandas
+potsdb
+profilehooks
+pytest
+python-arango
+PyYAML
+requests2
+simplejson
+treelib
