@@ -92,3 +92,10 @@ scratch/
 .venv/
 venv/
 ENV/
+
+# Extra files
+*.svg
+*.png
+*.html
+*.pdf
+*.txt
